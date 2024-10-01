@@ -35,6 +35,9 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
+      '@workspace/shared-styles':
+        specifier: workspace:*
+        version: link:../../@packages/shared-styles
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -56,6 +59,8 @@ importers:
       vue-tsc:
         specifier: ^2.0.21
         version: 2.1.6(typescript@5.4.5)
+
+  '@packages/shared-styles': {}
 
 packages:
 

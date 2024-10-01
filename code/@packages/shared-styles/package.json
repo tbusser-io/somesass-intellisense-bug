@@ -1,0 +1,7 @@
+{
+    "name": "@workspace/shared-styles",
+    "version": "1.0.0",
+    "files": [
+        "./tools/**/*"
+    ]
+}

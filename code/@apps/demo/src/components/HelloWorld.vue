@@ -29,10 +29,7 @@ h3 {
   // TODO: When uncommenting the following line I would expect intellisense to
   //       suggest the mixin "truncate" but instead intellisense doesn't suggest
   //       anything at all.
-  //       When the setting "somesass.scss.completion.suggestFromUseOnly" is set
-  //       to false, intellisense does suggest the truncate mixin but it will
-  //       also suggest "error" but this mixin is not in this namespace.
-  // @include mixins.;
+  @include mixins.;
   font-size: 1.2rem;
 }
 
