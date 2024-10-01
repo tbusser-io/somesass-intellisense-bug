@@ -16,7 +16,7 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
-@use 'tools/mixins' as mixins;
+@use 'tools/mixins';
 
 h1 {
   font-weight: 500;
@@ -29,7 +29,7 @@ h3 {
   // TODO: When uncommenting the following line I would expect intellisense to
   //       suggest the mixin "truncate" but instead intellisense doesn't suggest
   //       anything at all.
-  @include mixins.;
+  // @include mixins.;
   font-size: 1.2rem;
 }
 
