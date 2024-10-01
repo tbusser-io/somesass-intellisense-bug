@@ -1,0 +1,8 @@
+/// Truncates the text when it is too long for the element it is in.
+/// @param {string} $max-width - The maximum width of the text before it is truncated.
+@mixin truncate($max-width: 100%) {
+	max-width: $max-width;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

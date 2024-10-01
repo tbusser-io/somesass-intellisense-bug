@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "./somesass/@apps"
+		},
+		{
+			"path": "./somesass/@packages"
+		},
+		{
+			"path": "somesass"
+		}
+	],
+	"settings": {
+		"somesass.scss.completion.suggestFromUseOnly": true
+	}
+}
