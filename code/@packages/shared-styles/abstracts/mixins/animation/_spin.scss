@@ -1,0 +1,16 @@
+@mixin spin(
+	$animation-speed: 1s,
+	$animation-iterations: infinite,
+	$animation-timing-function: linear
+) {
+	animation: spin $animation-speed $animation-iterations $animation-timing-function;
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+}

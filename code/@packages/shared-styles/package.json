@@ -3,5 +3,8 @@
     "version": "1.0.0",
     "files": [
         "./tools/**/*"
-    ]
+    ],
+    "devDependencies": {
+        "modern-normalize": "^3.0.1"
+    }
 }

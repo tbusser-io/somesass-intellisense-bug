@@ -1,0 +1,38 @@
+@use 'sass:math';
+
+/* ========================================================================== */
+
+/// Mixin to add bouncing animation to element
+@mixin bounce(
+	$bounce-height: 15px,
+	$animation-speed: 0.75s,
+	$animation-iterations: infinite,
+	$animation-hover-pause: true
+) {
+	animation: bounce $animation-speed $animation-iterations;
+
+	// Forces Bounce to "pause" on hover by resetting the property-values
+	@if($animation-hover-pause) {
+		&:hover {
+			animation: none;
+		}
+	}
+
+	@keyframes bounce {
+		0%,
+		20%,
+		50%,
+		80%,
+		100% {
+			transform: translateY(0);
+		}
+
+		40% {
+			transform: translateY(-#{math.div($bounce-height, 2)});
+		}
+
+		60% {
+			transform: translateY(-#{math.div($bounce-height, 5)});
+		}
+	}
+}

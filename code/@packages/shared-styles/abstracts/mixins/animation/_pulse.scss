@@ -1,0 +1,48 @@
+/// Mixin to add pulsing animation to element
+/// Pulse and Scale values can be fine-tuned when including mixin
+///
+/// Scale can be disabled by setting "$scale-size-from" to 1
+/// @include animation-pulse($scale-size-from: 1); // Scale disabled
+@mixin pulse(
+	$pulse-color: $color-blizzard-blue,
+	$pulse-transparency: 1,
+	$pulse-width: $global-spacing-unit-half,
+	$scale-size-from: 0.97,
+	$scale-size-to: 1,
+	$animation-speed: 1.5s,
+	$animation-iterations: infinite,
+	$animation-hover-pause: true
+) {
+	animation: pulse $animation-speed $animation-iterations;
+	box-shadow: 0 0 0 0 rgba($pulse-color, $pulse-transparency);
+
+	// Forces Pulse and Scale to "pause" on hover by resetting the property-values
+	// Note: Do not manipulate the "animation" property due to the animation sync
+	// when using it on multiple elements
+	@if($animation-hover-pause) {
+		&:hover {
+			box-shadow: 0 0 0 0 rgba($pulse-color, 0) !important;
+			transform: scale(1) !important;
+		}
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale($scale-size-from);
+		}
+
+		70% {
+			transform: scale($scale-size-to);
+		}
+
+		80% {
+			// Take $pulse-width for "spread" and 3px to blur (soften)
+			// the corners a little bit for square styled elements
+			box-shadow: 0 0 3px $pulse-width rgba($pulse-color, 0);
+		}
+
+		100% {
+			box-shadow: 0 0 0 0 rgba($pulse-color, 0);
+		}
+	}
+}

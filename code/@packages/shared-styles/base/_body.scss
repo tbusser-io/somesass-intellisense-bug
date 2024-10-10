@@ -1,0 +1,5 @@
+@use '../abstracts/tokens/font' as font;
+
+body {
+	font-family: font.$font-family-base;
+}

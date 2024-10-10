@@ -1,0 +1,13 @@
+/// Mixin to keep the aspect ratio
+@mixin aspect-ratio($width, $height, $contentClass: '.o-aspect-ratio-content') {
+	aspect-ratio: $width / $height;
+	position: relative;
+
+	> #{$contentClass} {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+}

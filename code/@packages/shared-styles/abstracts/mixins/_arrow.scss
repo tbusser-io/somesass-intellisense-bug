@@ -1,0 +1,64 @@
+@use 'sass:math';
+
+/* ========================================================================== */
+
+@mixin arrow(
+	$direction: right,
+	$width: 15px,
+	$height: 60px,
+	$include-positioning: true
+) {
+	border-style: solid;
+
+	@if $direction == 'right' {
+		border-bottom-color: transparent !important;
+		border-bottom-width: math.div($height, 2);
+		border-left-width: $width;
+		border-right-color: transparent !important;
+		border-top-color: transparent !important;
+		border-top-width: math.div($height, 2);
+
+		@if $include-positioning == true {
+			right: (-1 * ($width + 3));
+		}
+	}
+
+	@if $direction == 'left' {
+		border-bottom-color: transparent !important;
+		border-bottom-width: math.div($height, 2);
+		border-left-color: transparent !important;
+		border-right-width: $width;
+		border-top-color: transparent !important;
+		border-top-width: math.div($height, 2);
+
+		@if $include-positioning == true {
+			left: (-1 * ($width + 3));
+		}
+	}
+
+	@if $direction == 'top' {
+		border-bottom-width: $width;
+		border-left-color: transparent !important;
+		border-left-width: math.div($height, 2);
+		border-right-color: transparent !important;
+		border-right-width: math.div($height, 2);
+		border-top-color: transparent !important;
+
+		@if $include-positioning == true {
+			top: (-1 * ($width + 3));
+		}
+	}
+
+	@if $direction == 'bottom' {
+		border-bottom-color: transparent !important;
+		border-left-color: transparent !important;
+		border-left-width: math.div($height, 2);
+		border-right-color: transparent !important;
+		border-right-width: math.div($height, 2);
+		border-top-width: $width;
+
+		@if $include-positioning == true {
+			bottom: (-1 * ($width + 3));
+		}
+	}
+}

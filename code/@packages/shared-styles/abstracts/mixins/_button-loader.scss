@@ -1,0 +1,50 @@
+@use 'animation';
+
+/* ========================================================================== */
+
+/// Mixin to show loader on button element
+@mixin button-loader($border-color: #000, $speed: 1s) {
+	color: transparent !important;
+	cursor: default;
+	position: relative;
+
+	&::before,
+	&::after {
+		border: 0;
+		content: '';
+		font: inherit;
+		margin: 0;
+		padding: 0;
+		vertical-align: baseline;
+	}
+
+	&::before {
+		// Will only work if you have the animations inside our elements
+		// layer also loaded inside component
+		// animation: spin 1s infinite linear;
+
+		// Colors of the spinner
+		border: 0.25rem solid $border-color;
+		border-radius: 50%;
+		border-top-color: transparent;
+		display: block;
+
+		// Size of te spinner
+		height: 20px;
+		left: 50%;
+		margin-left: -10px;
+		margin-top: -10px;
+
+		// Position of the spinner
+		position: absolute;
+		top: 50%;
+		width: 20px;
+		z-index:999;
+
+		@include animation.spin($animation-speed: $speed);
+	}
+
+	svg.c-icon {
+		display: none;
+	}
+}

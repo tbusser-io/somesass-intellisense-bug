@@ -1,0 +1,81 @@
+@use 'sass:list';
+@use 'sass:math';
+
+@use '../functions/strip-unit';
+
+/* ========================================================================== */
+
+/// Mixin to build keyframes for a bouncing effect
+/// Builds a @keyframes block to make an element look as if it's bouncing.
+///
+/// @param {string} $name The name of the @keyframes block.
+/// @param {list} $bounce Must be a non-empty list of numbers representing
+///        each bounce height. Bounce duration will be calculated. Gravity
+///        dictates that bounce height scales linearly with bounce duration.
+///        It's the law.
+@mixin bounce-effect($name, $bounces) {
+	// Timing functions for the raising and falling parts of each bounce.
+	$raise: cubic-bezier(0.215, 0.61, 0.355, 1);
+	$fall: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+	// Validate $name to be a string
+	@if type-of($name) != string {
+		@error '$name must be a string';
+	}
+
+	// Validate $bounces for a non-empty list of numbers.
+	@if type-of($bounces) != list {
+		@error '$bounces must be a list';
+	}
+	@if list.length($bounces) < 1 {
+		@error '$bounces must be at least 1 long';
+	}
+	@for $i from 1 through list.length($bounces) {
+		@if type-of(list.nth($bounces, $i)) != number {
+			@error '$bounces must only contain numbers';
+		}
+	}
+
+	@keyframes #{unquote($name)} {
+		// Calculate the total length of all bounces.
+		$total: 0;
+		@for $i from 1 through list.length($bounces) {
+			$total: $total + strip-unit(list.nth($bounces, $i));
+		}
+
+		// Keep a cumulative duration.
+		$cumulativeDuration: 0;
+		@for $i from 1 through list.length($bounces) {
+			// Current duration of raise & fall.
+			$duration: math.div(100%, $total * strip-unit(list.nth($bounces, $i)));
+
+			// At 0% we need to reset to the timing function for the raising part
+			// of a bounce.
+			@if $i == 1 {
+				#{0%} {
+					transform: none;
+					animation-timing-function: $raise;
+				}
+			}
+
+			// The raising part of a bounce. The timing function is set to fall at
+			// the end, for the next part.
+			#{math.div($cumulativeDuration + $duration,  2)} {
+				transform: translateY(0 - list.nth($bounces, $i));
+				animation-timing-function: $fall;
+			}
+
+			// The falling part of a bounce. If there's another bounce next, the
+			// timing function needs to be set to raise again at the end.
+			#{$cumulativeDuration + $duration} {
+				transform: none;
+				@if ($i < list.length($bounces)) {
+					animation-timing-function: $raise;
+				}
+			}
+
+			// Keep a cumulative duration, so we reach 100% at the very end.
+			$cumulativeDuration: $cumulativeDuration + $duration;
+		}
+	}
+}

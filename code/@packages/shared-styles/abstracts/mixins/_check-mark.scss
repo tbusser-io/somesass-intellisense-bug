@@ -1,0 +1,58 @@
+@use 'sass:map';
+
+/* ========================================================================== */
+
+/// A private map of check mark sizes.
+$-check-mark-sizes: (
+	xsmall: (
+		width: 4px,
+		height: 7px
+	),
+	small: (
+		width: 5px,
+		height: 10px
+	),
+	default: (
+		width: 7px,
+		height: 11px
+	),
+	large: (
+		width: 8px,
+		height: 14px
+	)
+);
+
+/* ========================================================================== */
+
+/// Mixin to add a check mark. It is to be used in the ::before or ::after
+/// pseudo-elements of an element.
+///
+/// @access public
+///
+/// @param {Color} $color - The color of the check mark
+/// @param {String} $size [default]- The size of the check mark. The supported
+/// values are: xsmall, small, default, large.
+/// @param {Length} $thickness - The thickness of the check mark
+///
+/// @example scss - Usage
+///   .foo {
+///     &::before {
+///       @include check-mark(#f60, large, 5px);
+///     }
+///   }
+@mixin check-mark($color, $size: default, $thickness: 3px) {
+	$specs: map.get($-check-mark-sizes, $size);
+
+	@if ($specs == null) {
+		@warn 'Size not found: #{$size} in check mark mixin';
+	}
+
+	border-width: 0 $thickness $thickness 0;
+	border: solid $color;
+	content: '';
+	display: block;
+	height: map.get($specs, height);
+	/* Rotate the L 45 degrees to turn it into a check mark */
+	transform: rotate(45deg);
+	width: map.get($specs, width);
+}
